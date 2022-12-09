@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ngnix-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    #kubernetes.io/ingress.class: "nginx"
+    #cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    #acme.cert-manager.io/http01-edit-in-place: "true"
+    #acme.cert-manager.io/http01-ingress-class: "nginx"
+    #kubernetes.io/cluster/wetek-ovp-uat: owned
+    #kubernetes.io/role/elb: 1
+    alb.ingress.kubernetes.io/subnets: 'subnet-0f0b1f57ff10f29d6,subnet-0788ddabc8090b80f,subnet-07b52c0e0f865e89f'
+spec:
+  rules:
+  - host:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          serviceName: nginx-service-cluster-ip
+          servicePort: 443
